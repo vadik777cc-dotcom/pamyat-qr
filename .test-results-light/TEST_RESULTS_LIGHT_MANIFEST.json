@@ -1,0 +1,13 @@
+{
+  "createdAt": "2026-06-30T12:30:05.272Z",
+  "copiedTextReports": 24,
+  "convertedPngToJpg": 48,
+  "excluded": [
+    "video.webm",
+    "trace.zip",
+    "*.webm",
+    "*.zip"
+  ],
+  "screenshotFormat": "jpg",
+  "screenshotQuality": 72
+}

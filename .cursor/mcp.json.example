@@ -1,0 +1,18 @@
+{
+  "mcpServers": {
+    "github": {
+      "url": "https://api.githubcopilot.com/mcp/",
+      "headers": {
+        "Authorization": "Bearer ВАШ_GITHUB_PAT"
+      }
+    },
+    "image-gen": {
+      "command": "npx",
+      "args": ["-y", "@gongrzhe/image-gen-server"],
+      "env": {
+        "REPLICATE_API_TOKEN": "ВАШ_REPLICATE_TOKEN",
+        "MODEL": "black-forest-labs/flux-1.1-pro"
+      }
+    }
+  }
+}

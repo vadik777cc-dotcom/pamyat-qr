@@ -1,0 +1,85 @@
+{
+  "reports": [
+    {
+      "url": "/",
+      "status": 200,
+      "brokenImages": [],
+      "brokenBackgrounds": [],
+      "overflow": 0,
+      "typographyWarnings": []
+    },
+    {
+      "url": "/demo/b2b",
+      "status": 200,
+      "brokenImages": [],
+      "brokenBackgrounds": [],
+      "overflow": 0,
+      "typographyWarnings": []
+    },
+    {
+      "url": "/demo/families",
+      "status": 200,
+      "brokenImages": [],
+      "brokenBackgrounds": [],
+      "overflow": 0,
+      "typographyWarnings": []
+    },
+    {
+      "url": "/demo/memory",
+      "status": 200,
+      "brokenImages": [],
+      "brokenBackgrounds": [],
+      "overflow": 0,
+      "typographyWarnings": []
+    },
+    {
+      "url": "/primer-b2b",
+      "status": 200,
+      "brokenImages": [],
+      "brokenBackgrounds": [],
+      "overflow": 0,
+      "typographyWarnings": []
+    },
+    {
+      "url": "/primer-dlya-semei",
+      "status": 200,
+      "brokenImages": [],
+      "brokenBackgrounds": [],
+      "overflow": 0,
+      "typographyWarnings": []
+    },
+    {
+      "url": "/primer-stranicy-pamyati",
+      "status": 200,
+      "brokenImages": [],
+      "brokenBackgrounds": [],
+      "overflow": 0,
+      "typographyWarnings": []
+    },
+    {
+      "url": "/static/examples/b2b/index.html",
+      "status": 200,
+      "brokenImages": [],
+      "brokenBackgrounds": [],
+      "overflow": 0,
+      "typographyWarnings": []
+    },
+    {
+      "url": "/static/examples/b2c/index.html",
+      "status": 200,
+      "brokenImages": [],
+      "brokenBackgrounds": [],
+      "overflow": 0,
+      "typographyWarnings": []
+    },
+    {
+      "url": "/static/examples/memory/index.html",
+      "status": 200,
+      "brokenImages": [],
+      "brokenBackgrounds": [],
+      "overflow": 0,
+      "typographyWarnings": []
+    }
+  ],
+  "failures": []
+}

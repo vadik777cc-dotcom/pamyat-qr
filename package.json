@@ -1,0 +1,51 @@
+{
+  "name": "pamyat-qr-admin",
+  "version": "1.0.0-rc1",
+  "description": "Память QR — админ-панель ритуальной компании: B2C-лендинг, страницы памяти, публикация и QR",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "check": "node --check server.js && node --check db.js && node --check scripts/doctor.js",
+    "pack:release": "node scripts/pack-release.js",
+    "doctor": "node scripts/doctor.js",
+    "seed": "node scripts/seed.js",
+    "test:e2e": "node scripts/run-session-tests.js",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:headed": "playwright test --headed",
+    "test:report": "playwright show-report",
+    "test:debug-pack": "bash scripts/pack-test-results.sh session-debug-light.zip",
+    "test:global-qa": "playwright test tests/global-product-qa.spec.js",
+    "test:full-qa": "npm run check && npm run test:e2e:full && npm run test:debug-pack",
+    "test:e2e:session": "playwright test tests/access-isolation.spec.js tests/audit-impersonation.spec.js tests/crm-family-workflow.spec.js tests/global-product-qa.spec.js tests/media-network.spec.js",
+    "test:e2e:full": "playwright test",
+    "test:e2e:smoke": "playwright test tests/access-isolation.spec.js tests/media-network.spec.js tests/global-product-qa.spec.js",
+    "test:visual-assets": "playwright test tests/visual-assets-polish.spec.js",
+    "test:session": "node scripts/run-session-tests.js",
+    "test:full": "npm run check && npm run test:e2e:full && npm run test:debug-pack",
+    "pack:test-results": "node scripts/pack-test-results-light.js"
+  },
+  "dependencies": {
+    "archiver": "^6.0.1",
+    "bcryptjs": "^2.4.3",
+    "better-sqlite3": "^9.4.3",
+    "connect-sqlite3": "^0.9.14",
+    "csurf": "^1.11.0",
+    "dotenv": "^16.4.1",
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "multer": "^2.0.2",
+    "nodemailer": "^6.9.16",
+    "pdfkit": "^0.14.0",
+    "qrcode": "^1.5.3",
+    "sharp": "^0.33.2",
+    "slugify": "^1.6.6",
+    "uuid": "^9.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.54.0"
+  }
+}

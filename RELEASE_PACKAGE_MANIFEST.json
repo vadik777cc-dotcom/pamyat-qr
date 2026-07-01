@@ -1,0 +1,23 @@
+{
+  "createdAt": "2026-06-30T08:47:41.722Z",
+  "source": "/Users/admin/pamyat-qr 2",
+  "releaseDir": "/Users/admin/pamyat-qr 2/.release/pamyat-qr",
+  "convertedImages": 0,
+  "rules": {
+    "excluded": [
+      "node_modules",
+      "test-results",
+      "playwright-report",
+      ".git",
+      ".release",
+      "sessions",
+      "logs",
+      "uploads/tmp",
+      "*.zip",
+      ".DS_Store"
+    ],
+    "images": "jpg/jpeg/png -> webp, max 1800px, quality 76"
+  },
+  "images": [],
+  "hotfixV4": "visual-assets test uses domcontentloaded/load instead of networkidle to avoid timeout on pages with long-lived media/network activity"
+}

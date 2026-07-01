@@ -1,0 +1,30 @@
+[
+  {
+    "url": "/",
+    "warnings": []
+  },
+  {
+    "url": "/demo/b2b",
+    "warnings": []
+  },
+  {
+    "url": "/demo/families",
+    "warnings": []
+  },
+  {
+    "url": "/demo/memory",
+    "warnings": []
+  },
+  {
+    "url": "/static/examples/b2b/index.html",
+    "warnings": []
+  },
+  {
+    "url": "/static/examples/b2c/index.html",
+    "warnings": []
+  },
+  {
+    "url": "/static/examples/memory/index.html",
+    "warnings": []
+  }
+]

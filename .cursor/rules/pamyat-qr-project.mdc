@@ -1,0 +1,48 @@
+---
+description: Контекст проекта Память QR — мемориальная платформа для ритуальных компаний
+alwaysApply: true
+---
+
+# Память QR
+
+Node.js 18+ / Express / SQLite (`better-sqlite3`) / Sharp / Playwright.
+
+## Стек и структура
+
+- `server.js` — основной сервер (админка + публичные страницы)
+- `db.js` — слой SQLite
+- `public/admin/` — JS/CSS админки
+- `templates/` — HTML шаблоны лендинга и страниц памяти
+- `uploads/` — медиа (webp через Sharp)
+- `tests/` — Playwright E2E (30+ сценариев)
+- `deploy/` — nginx + systemd
+- `docs/` — деплой, QA, чеклисты
+
+## Команды
+
+```bash
+npm install && cp .env.example .env && npm run seed && npm start
+npm run check          # синтаксис
+npm run test:e2e       # короткий QA
+npm run test:e2e:full  # полный Playwright
+npm run doctor         # диагностика окружения
+npm run pack:release   # релизный архив
+```
+
+Локально: http://localhost:3001/admin/login (manager / change-me из .env)
+
+Production: https://pamyat-qr.ru
+
+## Важно при разработке
+
+- Медиа: jpeg/png/webp/heic, обработка через `saveImage()` + Sharp
+- QR/PDF материалы генерируются на сервере (qrcode + pdfkit)
+- Не коммитить `.env`, `database.sqlite*`, `sessions/`, `node_modules/`
+- Перед релизом: `docs/RELEASE_CHECKLIST.md`
+- White-label домены: `docs/DEPLOY_DOMAINS_SEO.md`
+
+## Стиль изменений
+
+- Минимальный diff, без лишних абстракций
+- Сохранять русскоязычный UI и существующие паттерны admin-editor
+- После UI-изменений — прогон релевантных Playwright-тестов
