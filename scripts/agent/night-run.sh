@@ -66,8 +66,19 @@ fi
 echo "seed exit: $SEED_STATUS"
 echo
 
+BROWSER_STATUS=1
+if [ "$SEED_STATUS" -eq 0 ]; then
+  echo "=== npx playwright install ==="
+  npx playwright install
+  BROWSER_STATUS=$?
+else
+  echo "Skipping Playwright browser install because seed failed"
+fi
+echo "playwright install exit: $BROWSER_STATUS"
+echo
+
 TEST_STATUS=1
-if [ "$CHECK_STATUS" -eq 0 ] && [ "$SEED_STATUS" -eq 0 ]; then
+if [ "$CHECK_STATUS" -eq 0 ] && [ "$SEED_STATUS" -eq 0 ] && [ "$BROWSER_STATUS" -eq 0 ]; then
   echo "=== npm run test:e2e ==="
   npm run test:e2e
   TEST_STATUS=$?
@@ -77,7 +88,7 @@ else
 fi
 
 OVERALL_STATUS=0
-if [ "$INSTALL_STATUS" -ne 0 ] || [ "$CHECK_STATUS" -ne 0 ] || [ "$SEED_STATUS" -ne 0 ] || [ "$TEST_STATUS" -ne 0 ]; then
+if [ "$INSTALL_STATUS" -ne 0 ] || [ "$CHECK_STATUS" -ne 0 ] || [ "$SEED_STATUS" -ne 0 ] || [ "$BROWSER_STATUS" -ne 0 ] || [ "$TEST_STATUS" -ne 0 ]; then
   OVERALL_STATUS=1
 fi
 
@@ -86,7 +97,7 @@ if [ "$OVERALL_STATUS" -eq 0 ]; then
   NIGHT_OK=true
 fi
 
-export NIGHT_OK INSTALL_STATUS CHECK_STATUS SEED_STATUS TEST_STATUS OVERALL_STATUS LOG_PATH RESULT_PATH LATEST_PATH STAMP
+export NIGHT_OK INSTALL_STATUS CHECK_STATUS SEED_STATUS BROWSER_STATUS TEST_STATUS OVERALL_STATUS LOG_PATH RESULT_PATH LATEST_PATH STAMP
 node <<'NODE'
 const fs = require('fs');
 
@@ -100,6 +111,7 @@ const steps = [
   },
   { name: 'check', command: 'npm run check', status: Number(process.env.CHECK_STATUS) },
   { name: 'seed', command: 'npm run seed', status: Number(process.env.SEED_STATUS) },
+  { name: 'playwright-install', command: 'npx playwright install', status: Number(process.env.BROWSER_STATUS) },
   { name: 'e2e', command: 'npm run test:e2e', status: Number(process.env.TEST_STATUS) }
 ];
 
