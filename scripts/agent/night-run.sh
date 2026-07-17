@@ -4,6 +4,28 @@ set -u
 ROOT_DIR="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
 cd "$ROOT_DIR" || exit 1
 
+install_playwright_browsers() {
+  local status=1
+  local delay=5
+
+  for attempt in 1 2 3; do
+    echo "Playwright browser install attempt $attempt/3"
+    npx playwright install chromium webkit
+    status=$?
+    if [ "$status" -eq 0 ]; then
+      return 0
+    fi
+
+    if [ "$attempt" -lt 3 ]; then
+      echo "Playwright install failed with $status; retrying in ${delay}s"
+      sleep "$delay"
+      delay=$((delay * 2))
+    fi
+  done
+
+  return "$status"
+}
+
 mkdir -p .agent/eval .agent/logs
 
 STAMP="$(date -u +%Y%m%dT%H%M%SZ)"
@@ -68,8 +90,8 @@ echo
 
 BROWSER_STATUS=1
 if [ "$SEED_STATUS" -eq 0 ]; then
-  echo "=== npx playwright install ==="
-  npx playwright install
+  echo "=== npx playwright install chromium webkit ==="
+  install_playwright_browsers
   BROWSER_STATUS=$?
 else
   echo "Skipping Playwright browser install because seed failed"
@@ -111,7 +133,7 @@ const steps = [
   },
   { name: 'check', command: 'npm run check', status: Number(process.env.CHECK_STATUS) },
   { name: 'seed', command: 'npm run seed', status: Number(process.env.SEED_STATUS) },
-  { name: 'playwright-install', command: 'npx playwright install', status: Number(process.env.BROWSER_STATUS) },
+  { name: 'playwright-install', command: 'npx playwright install chromium webkit', status: Number(process.env.BROWSER_STATUS) },
   { name: 'e2e', command: 'npm run test:e2e', status: Number(process.env.TEST_STATUS) }
 ];
 
