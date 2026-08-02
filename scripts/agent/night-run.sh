@@ -9,8 +9,8 @@ install_playwright_browsers() {
   local delay=5
 
   for attempt in 1 2 3; do
-    echo "Playwright browser install attempt $attempt/3"
-    npx playwright install chromium webkit
+    echo "Playwright browser/dependency install attempt $attempt/3"
+    npx playwright install --with-deps chromium webkit
     status=$?
     if [ "$status" -eq 0 ]; then
       return 0
@@ -48,6 +48,18 @@ if [ ! -f .env ] && [ -f .env.example ]; then
   cp .env.example .env
   echo
 fi
+
+export NODE_ENV=development
+export PORT="${PORT:-3001}"
+export APP_BASE_URL="${QA_APP_BASE_URL:-http://127.0.0.1:${PORT}}"
+export ADMIN_LOGIN="${QA_ADMIN_LOGIN:-manager}"
+export ADMIN_PASSWORD="${QA_ADMIN_PASSWORD:-change-me}"
+export DISABLE_RATE_LIMITS=1
+
+echo "qa node env: $NODE_ENV"
+echo "qa base url: $APP_BASE_URL"
+echo "qa admin login: $ADMIN_LOGIN"
+echo
 
 rm -rf playwright-report test-results
 
@@ -90,7 +102,7 @@ echo
 
 BROWSER_STATUS=1
 if [ "$SEED_STATUS" -eq 0 ]; then
-  echo "=== npx playwright install chromium webkit ==="
+  echo "=== npx playwright install --with-deps chromium webkit ==="
   install_playwright_browsers
   BROWSER_STATUS=$?
 else
@@ -133,7 +145,7 @@ const steps = [
   },
   { name: 'check', command: 'npm run check', status: Number(process.env.CHECK_STATUS) },
   { name: 'seed', command: 'npm run seed', status: Number(process.env.SEED_STATUS) },
-  { name: 'playwright-install', command: 'npx playwright install chromium webkit', status: Number(process.env.BROWSER_STATUS) },
+  { name: 'playwright-install', command: 'npx playwright install --with-deps chromium webkit', status: Number(process.env.BROWSER_STATUS) },
   { name: 'e2e', command: 'npm run test:e2e', status: Number(process.env.TEST_STATUS) }
 ];
 
