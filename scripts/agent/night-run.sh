@@ -54,14 +54,17 @@ export PORT="${PORT:-3001}"
 export APP_BASE_URL="${QA_APP_BASE_URL:-http://127.0.0.1:${PORT}}"
 export ADMIN_LOGIN="${QA_ADMIN_LOGIN:-manager}"
 export ADMIN_PASSWORD="${QA_ADMIN_PASSWORD:-change-me}"
+export DB_PATH="${QA_DB_PATH:-$ROOT_DIR/.agent/night-run.sqlite}"
 export DISABLE_RATE_LIMITS=1
 
 echo "qa node env: $NODE_ENV"
 echo "qa base url: $APP_BASE_URL"
 echo "qa admin login: $ADMIN_LOGIN"
+echo "qa db path: $DB_PATH"
 echo
 
 rm -rf playwright-report test-results
+rm -f "$DB_PATH" "$DB_PATH-wal" "$DB_PATH-shm"
 
 INSTALL_STATUS=0
 if [ ! -d node_modules ]; then
