@@ -5,7 +5,17 @@ const path = require('path');
 const OUT_DIR = path.join(process.cwd(), 'test-results', 'global-product-qa');
 function ensureDir(){ fs.mkdirSync(OUT_DIR, { recursive: true }); }
 function safeName(name){ return String(name).replace(/[^a-z0-9а-яё_-]+/gi, '-').replace(/^-+|-+$/g, '').toLowerCase(); }
-async function screenshot(page, name){ ensureDir(); await page.screenshot({ path: path.join(OUT_DIR, `${test.info().project.name}-${safeName(name)}.png`), fullPage: true, timeout: 60000, animations: 'disabled' }); }
+async function screenshot(page, name){
+  ensureDir();
+  const shotPath = path.join(OUT_DIR, `${test.info().project.name}-${safeName(name)}.png`);
+  const options = { path: shotPath, timeout: 60000, animations: 'disabled' };
+  try {
+    await page.screenshot({ ...options, fullPage: true });
+  } catch (error) {
+    if(!/Cannot take screenshot larger than 32767 pixels/i.test(error.message || '')) throw error;
+    await page.screenshot({ ...options, fullPage: false });
+  }
+}
 function writeReport(name, data){ ensureDir(); fs.writeFileSync(path.join(OUT_DIR, `${test.info().project.name}-${safeName(name)}.json`), JSON.stringify(data, null, 2), 'utf8'); }
 function unique(prefix){ return `${prefix}-${Date.now()}-${Math.floor(Math.random() * 10000)}`; }
 
