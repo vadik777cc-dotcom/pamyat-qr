@@ -135,7 +135,8 @@ if [ "$OVERALL_STATUS" -eq 0 ]; then
 fi
 
 export NIGHT_OK INSTALL_STATUS CHECK_STATUS SEED_STATUS BROWSER_STATUS TEST_STATUS OVERALL_STATUS LOG_PATH RESULT_PATH LATEST_PATH STAMP
-node <<'NODE'
+REPORT_STATUS=0
+node <<'NODE' || REPORT_STATUS=$?
 const fs = require('fs');
 
 const ok = process.env.NIGHT_OK === 'true';
@@ -173,5 +174,10 @@ fs.copyFileSync(process.env.RESULT_PATH, process.env.LATEST_PATH);
 console.log(`Wrote ${process.env.RESULT_PATH}`);
 console.log(`Updated ${process.env.LATEST_PATH}`);
 NODE
+
+if [ "$REPORT_STATUS" -ne 0 ]; then
+  echo "report write exit: $REPORT_STATUS"
+  exit "$REPORT_STATUS"
+fi
 
 exit "$OVERALL_STATUS"
