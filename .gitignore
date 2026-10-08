@@ -4,6 +4,7 @@ sessions/
 logs/
 test-results/
 playwright-report/
+.agent/
 .release/
 uploads/tmp/
 *.zip
