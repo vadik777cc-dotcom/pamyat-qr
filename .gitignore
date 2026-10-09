@@ -5,6 +5,7 @@ logs/
 test-results/
 playwright-report/
 .release/
+.agent/
 uploads/tmp/
 *.zip
 .DS_Store
